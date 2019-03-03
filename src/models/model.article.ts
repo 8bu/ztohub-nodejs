@@ -1,8 +1,8 @@
-import * as mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+// Can use @interface for type-checking but I'm too lazy to write...
+// TODO: Type-checking if it is needed (future update)
 
-const Schema = mongoose.Schema;
-
-export const ArticleSchema = new Schema({
+const ArticleSchema: Schema = new Schema({
     title: {
         type: String,
         required: 'Enter title'
@@ -11,11 +11,18 @@ export const ArticleSchema = new Schema({
         type: String,
         required: 'Enter content'
     },
-    tags: {
+    categories: {
         type: String            
     },
-    created_at: {
+    created: {
         type: Date,
+        // default key is a surgar syntax but this is not the best choice for performance
         default: Date.now
+    },
+    modify: {
+      type: Date,
+      default: Date.now
     }
 });
+
+export default model('Article', ArticleSchema, "Articles");
