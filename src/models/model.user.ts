@@ -1,21 +1,17 @@
 import { Schema, model } from "mongoose";
-import * as slug from "limax";
 // Can use @interface for type-checking but I'm too lazy to write...
 // TODO: Type-checking if it is needed (future update)
 
-const ArticleSchema: Schema = new Schema({
-  title: {
+const CategorySchema: Schema = new Schema({
+  username: {
     type: String,
     required: "Enter title"
   },
-  slug: {
-    type: String
-  },
-  content: {
+  email: {
     type: String,
     required: "Enter content"
   },
-  categories: {
+  password: {
     type: String
   },
   created: {
@@ -25,13 +21,9 @@ const ArticleSchema: Schema = new Schema({
   },
   modified: {
     type: Date,
+    // default key is a surgar syntax but this is not the best choice for performance
     default: Date.now
   }
 });
-// Generate slug before post
-ArticleSchema.pre("save", function(next) {
-  this.slug = slug(this.title);
-  next();
-});
 
-export default model("Article", ArticleSchema, "Articles");
+export default model("Category", CategorySchema, "Categories");
