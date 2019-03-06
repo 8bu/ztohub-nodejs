@@ -26,6 +26,7 @@ class App {
   private mongoSetup(): void {
     mongoose.Promise = global.Promise;
     mongoose.connect(dbURL, { useNewUrlParser: true });
+    console.log("Connected Mongodb");
   }
 }
 

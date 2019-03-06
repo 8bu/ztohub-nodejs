@@ -11,6 +11,9 @@ const CategorySchema: Schema = new Schema({
     type: String,
     required: "Enter content"
   },
+  total: {
+    type: Number
+  },
   icon: {
     type: String
   },
