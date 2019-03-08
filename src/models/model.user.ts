@@ -2,17 +2,18 @@ import { Schema, model } from "mongoose";
 // Can use @interface for type-checking but I'm too lazy to write...
 // TODO: Type-checking if it is needed (future update)
 
-const CategorySchema: Schema = new Schema({
+const UserSchema: Schema = new Schema({
   username: {
     type: String,
-    required: "Enter title"
+    required: "username is missing"
   },
   email: {
     type: String,
-    required: "Enter content"
+    required: "email is missing"
   },
   password: {
-    type: String
+    type: String,
+    required: "password is missing"
   },
   created: {
     type: Date,
@@ -26,4 +27,4 @@ const CategorySchema: Schema = new Schema({
   }
 });
 
-export default model("Category", CategorySchema, "Categories");
+export default model("User", UserSchema, "Users");

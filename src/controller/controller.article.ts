@@ -5,7 +5,11 @@ const isObjectId = mongoose.Types.ObjectId.isValid;
 
 export class ArticleController {
   public addNewArticle(req: Request, res: Response) {
-    let newArticle = new Article(req.body);
+    // TODO: Get username from token login 
+    const { body } = req;
+    // const data = {...body, author_id: auth_id};
+    let data = body;
+    let newArticle = new Article(data);
     newArticle
       .save()
       .then(article => res.send(article))
@@ -17,7 +21,30 @@ export class ArticleController {
       ? Article.findById(query)
       : Article.find({ slug: query });
     console.log(isObjectId(query));
-    promise.then(dog => res.send(dog)).catch(err => res.send(err));
+    promise.then(article => res.send(article)).catch(err => res.send(err));
   }
-  public getAllArticle(req: Request, res: Response) {}
+  public updateArticle(req: Request, res: Response) {
+    const { query: _id } = req.params;
+    Article.findOneAndUpdate({_id}, req.body, {new: true})
+      .then(article => res.send(article))
+      .catch(err => res.send(err))
+  }
+  public getAllArticle(req: Request, res: Response) {
+    const { limit = 10, page = 1 } = req.query;
+    const skips = limit * (page - 1);
+    Article.find().skip(skips).limit(parseInt(limit))
+      .then(articles => res.send(articles))
+      .catch(err => res.send(err))
+  }
+  public deleteArticle(req: Request, res: Response) {
+    const { query: _id } = req.params;
+    Article.deleteOne({_id})
+      .then(msg => res.send(msg))
+      .catch(err => res.send(err))
+  }
+  // public deleteAll(req: Request, res: Response) {
+  //   Article.deleteMany({})
+  //     .then(msg => res.send(msg))
+  //     .catch(err => res.send(err))
+  // }
 }

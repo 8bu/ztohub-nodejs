@@ -13,7 +13,12 @@ export class ArticlesRoutes {
         });
       })
       .post(this.articleController.addNewArticle);
-    app.route("/article/:query").get(this.articleController.getArticle);
-    app.route("/articles").get(this.articleController.getAllArticle);
+    app.route("/article/:query")
+      .get(this.articleController.getArticle)
+      .delete(this.articleController.deleteArticle)
+      .put(this.articleController.updateArticle);
+    app.route("/articles")
+      .get(this.articleController.getAllArticle)
+      // .delete(this.articleController.deleteAll)
   }
 }
