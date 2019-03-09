@@ -5,8 +5,7 @@ export class ArticlesRoutes {
   public articleController: ArticleController = new ArticleController();
 
   public routes(app): void {
-    app
-      .route("/article")
+    app.route("/article")
       .get((req: Request, res: Response) => {
         res.status(200).send({
           message: "Use /articles instead to get all articles"
