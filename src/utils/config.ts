@@ -16,4 +16,5 @@ dotenv.config({ path: `${__dirname}/../../../.env` });
 
 export const dbURL = process.env.dbURL;
 export const secret = process.env.jsecret;
+export const whiteList = process.env.whiteList.split(",");
 export const LOG_LEVEL = process.env.LOG_LEVEL;
