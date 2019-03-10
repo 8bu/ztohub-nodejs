@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+const ObjectId = Schema.Types.ObjectId;
 import * as slug from "limax";
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 // Can use @interface for type-checking but I'm too lazy to write...
@@ -14,7 +15,8 @@ const ArticleSchema: Schema = new Schema({
     default: false
   },
   author_id: {
-    type: String,
+    type: ObjectId,
+    ref: "Users",
     require: "Username not found"
   },
   slug: {
@@ -25,9 +27,10 @@ const ArticleSchema: Schema = new Schema({
     type: String,
     required: "Enter content"
   },
-  categories: {
-    type: Array
-  },
+  categories: [{
+    type: ObjectId,
+    ref: "Categories"
+  }],
   created: {
     type: Date,
     // default key is a surgar syntax but this is not the best choice for performance

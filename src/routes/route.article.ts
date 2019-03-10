@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ArticleController } from "../controller/controller.article";
+import { isAuth } from "../utils/middleware";
 
 export class ArticlesRoutes {
   public articleController: ArticleController = new ArticleController();
@@ -11,11 +12,11 @@ export class ArticlesRoutes {
           message: "Use /articles instead to get all articles"
         });
       })
-      .post(this.articleController.addNewArticle);
+      .post(isAuth, this.articleController.addNewArticle);
     app.route("/article/:query")
       .get(this.articleController.getArticle)
-      .delete(this.articleController.deleteArticle)
-      .put(this.articleController.updateArticle);
+      .delete(isAuth, this.articleController.deleteArticle)
+      .put(isAuth, this.articleController.updateArticle);
     app.route("/articles")
       .get(this.articleController.getAllArticle)
       // .delete(this.articleController.deleteAll)
