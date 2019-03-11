@@ -20,7 +20,7 @@ export class ArticleController {
       ? Article.findById(query)
       : Article.find({ slug: query });
     console.log(isObjectId(query));
-    promise.then(article => res.send(article)).catch(err => res.status(400).send(err));
+    promise.populate("categories").exec().then(article => res.send(article)).catch(err => res.status(400).send(err));
   }
   public async updateArticle(req: any, res: Response) {
     try {
